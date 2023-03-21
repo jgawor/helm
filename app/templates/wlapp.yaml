@@ -11,3 +11,10 @@ spec:
   applicationImage: {{ .Values.repository }}:{{ .Values.app.version }}
   manageTLS: true
   expose: true
+  {{- if .Values.app.env }}
+  env:
+  {{- range $key, $val := .Values.app.env }}
+  - name: {{ $val.name | quote }}
+    value:  {{ $val.value | quote }}
+  {{- end }}
+  {{- end }}
